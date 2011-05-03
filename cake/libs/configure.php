@@ -116,20 +116,24 @@ class Configure extends Object {
  * @access private
  */
 	var $__objects = array();
+        
+        static $instance = null;
 /**
  * Returns a singleton instance of the Configure class.
  *
  * @return Configure instance
  * @access public
  */
+        
+
 	function &getInstance($boot = true) {
-		static $instance = array();
-		if (!$instance) {
-			$instance[0] =& new Configure();
-			$instance[0]->__loadBootstrap($boot);
+		if (is_null(self::$instance)) {
+                    self::$instance =& new Configure();
+                    self::$instance->__loadBootstrap($boot);
 		}
-		return $instance[0];
+		return self::$instance;
 	}
+                
 /**
  * Returns an index of objects of the given type, with the physical path to each object.
  *
@@ -747,6 +751,8 @@ class App extends Object {
  * @access private
  */
 	var $__loaded = array();
+        
+        static $instance = null;        
 /**
  * Finds classes based on $name or specific file(s) to search.
  *
@@ -888,12 +894,11 @@ class App extends Object {
  * @access public
  */
 	function &getInstance() {
-		static $instance = array();
-		if (!$instance) {
-			$instance[0] =& new App();
-			$instance[0]->__map = Cache::read('file_map', '_cake_core_');
+		if (is_null(self::$instance)) {
+			self::$instance =& new App();
+			self::$instance->__map = Cache::read('file_map', '_cake_core_');
 		}
-		return $instance[0];
+		return self::$instance;
 	}
 /**
  * Locates the $file in $__paths, searches recursively.

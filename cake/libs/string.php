@@ -30,6 +30,7 @@
  * @subpackage    cake.cake.libs
  */
 class String extends Object {
+    static $instance = null;
 /**
  * Gets a reference to the String object instance
  *
@@ -38,12 +39,11 @@ class String extends Object {
  * @static
  */
 	function &getInstance() {
-		static $instance = array();
 
-		if (!$instance) {
-			$instance[0] =& new String();
+		if (is_null(self::$instance)) {
+			self::$instance =& new String();
 		}
-		return $instance[0];
+		return self::$instance;
 	}
 /**
  * Generate a random UUID

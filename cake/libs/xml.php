@@ -1385,6 +1385,9 @@ class XmlManager {
 		'xhtml'		=> 'http://www.w3.org/1999/xhtml',					// XHTML,
 		'atom'	 	=> 'http://www.w3.org/2005/Atom'					// Atom
 	);
+        
+        static $instance = null;
+        
 /**
  * Returns a reference to the global XML object that manages app-wide XML settings
  *
@@ -1392,12 +1395,11 @@ class XmlManager {
  * @access public
  */
 	function &getInstance() {
-		static $instance = array();
 
-		if (!$instance) {
-			$instance[0] =& new XmlManager();
+		if (is_null(self::$instance)) {
+			self::$instance =& new XmlManager();
 		}
-		return $instance[0];
+		return self::$instance;
 	}
 }
 ?>

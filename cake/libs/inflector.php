@@ -117,6 +117,8 @@ class Inflector extends Object {
  * @access private
  **/
 	var $__irregularSingular = array();
+        
+        static $instance = null;        
 /**
  * Gets a reference to the Inflector object instance
  *
@@ -124,21 +126,20 @@ class Inflector extends Object {
  * @access public
  */
 	function &getInstance() {
-		static $instance = array();
 
-		if (!$instance) {
-			$instance[0] =& new Inflector();
+		if (is_null(self::$instance)) {
+			self::$instance =& new Inflector();
 			if (file_exists(CONFIGS.'inflections.php')) {
 				include(CONFIGS.'inflections.php');
-				$instance[0]->__pluralRules = $pluralRules;
-				$instance[0]->__uninflectedPlural = $uninflectedPlural;
-				$instance[0]->__irregularPlural = $irregularPlural;
-				$instance[0]->__singularRules = $singularRules;
-				$instance[0]->__uninflectedSingular = $uninflectedPlural;
-				$instance[0]->__irregularSingular = array_flip($irregularPlural);
+				self::$instance->__pluralRules = $pluralRules;
+				self::$instance->__uninflectedPlural = $uninflectedPlural;
+				self::$instance->__irregularPlural = $irregularPlural;
+				self::$instance->__singularRules = $singularRules;
+				self::$instance->__uninflectedSingular = $uninflectedPlural;
+				self::$instance->__irregularSingular = array_flip($irregularPlural);
 			}
 		}
-		return $instance[0];
+		return self::$instance;
 	}
 /**
  * Initializes plural inflection rules.

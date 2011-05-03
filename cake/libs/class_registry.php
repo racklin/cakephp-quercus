@@ -55,6 +55,8 @@ class ClassRegistry {
  * @access private
  */
 	var $__config = array();
+        
+        static $instance = null;
 /**
  * Return a singleton instance of the ClassRegistry.
  *
@@ -62,11 +64,10 @@ class ClassRegistry {
  * @access public
  */
 	function &getInstance() {
-		static $instance = array();
-		if (!$instance) {
-			$instance[0] =& new ClassRegistry();
+		if (is_null(self::$instance)) {
+			self::$instance =& new ClassRegistry();
 		}
-		return $instance[0];
+		return self::$instance;
 	}
 /**
  * Loads a class, registers the object in the registry and returns instance of the object.

@@ -96,6 +96,8 @@ class I18n extends Object {
 	var $__categories = array(
 		 'LC_ALL', 'LC_COLLATE', 'LC_CTYPE', 'LC_MONETARY', 'LC_NUMERIC', 'LC_TIME', 'LC_MESSAGES'
 	);
+        
+        static $instance = null;
 /**
  * Return a static instance of the I18n class
  *
@@ -103,12 +105,11 @@ class I18n extends Object {
  * @access public
  */
 	function &getInstance() {
-		static $instance = array();
-		if (!$instance) {
-			$instance[0] =& new I18n();
-			$instance[0]->l10n =& new L10n();
+		if (is_null(self::$instance)) {
+			self::$instance =& new I18n();
+			self::$instance->l10n =& new L10n();
 		}
-		return $instance[0];
+		return self::$instance;
 	}
 /**
  * Used by the translation functions in basics.php

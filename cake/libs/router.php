@@ -158,6 +158,8 @@ class Router extends Object {
  * @access private
  */
 	var $__defaultsMapped = false;
+        
+        static $instance = null;
 /**
  * Gets a reference to the Router object instance
  *
@@ -166,13 +168,12 @@ class Router extends Object {
  * @static
  */
 	function &getInstance() {
-		static $instance = array();
 
-		if (!$instance) {
-			$instance[0] =& new Router();
-			$instance[0]->__admin = Configure::read('Routing.admin');
+		if (is_null(self::$instance)) {
+			self::$instance =& new Router();
+			self::$instance->__admin = Configure::read('Routing.admin');
 		}
-		return $instance[0];
+		return self::$instance;
 	}
 /**
  * Gets the named route elements for use in app/config/routes.php

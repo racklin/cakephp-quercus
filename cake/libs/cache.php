@@ -57,6 +57,8 @@ class Cache extends Object {
  * @access private
  */
 	var $__reset = false;
+        
+	static $instance = null;
 /**
  * Returns a singleton instance
  *
@@ -65,11 +67,10 @@ class Cache extends Object {
  * @static
  */
 	function &getInstance() {
-		static $instance = array();
-		if (!$instance) {
-			$instance[0] =& new Cache();
+		if (is_null(self::$instance)) {
+                    self::$instance =& new Cache();
 		}
-		return $instance[0];
+		return self::$instance;
 	}
 /**
  * Tries to find and include a file for a cache engine and returns object instance

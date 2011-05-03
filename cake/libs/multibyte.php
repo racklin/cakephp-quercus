@@ -270,6 +270,8 @@ class Multibyte extends Object {
  * @access private
  */
 	var $__table = null;
+        
+        static $instance = null;
 /**
  * Gets a reference to the Multibyte object instance
  *
@@ -278,12 +280,11 @@ class Multibyte extends Object {
  * @static
  */
 	function &getInstance() {
-		static $instance = array();
 
-		if (!$instance) {
-			$instance[0] =& new Multibyte();
+		if (is_null(self::$instance)) {
+			self::$instance =& new Multibyte();
 		}
-		return $instance[0];
+		return self::$instance;
 	}
 /**
  * Converts a multibyte character string

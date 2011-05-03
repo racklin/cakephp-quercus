@@ -39,6 +39,8 @@ class Security extends Object {
  * @access public
  */
 	var $hashType = null;
+        
+	static $instance = null;        
 /**
   * Singleton implementation to get object instance.
   *
@@ -47,11 +49,10 @@ class Security extends Object {
   * @static
   */
 	function &getInstance() {
-		static $instance = array();
-		if (!$instance) {
-			$instance[0] =& new Security;
+		if (is_null(self::$instance)) {
+			self::$instance =& new Security();
 		}
-		return $instance[0];
+		return self::$instance;
 	}
 /**
   * Get allowed minutes of inactivity based on security level.

@@ -68,6 +68,8 @@ class CodeCoverageManager {
  * @var string
  */
 	var $numDiffContextLines = 7;
+        
+        static $instance = null;
 /**
  * Returns a singleton instance
  *
@@ -75,11 +77,10 @@ class CodeCoverageManager {
  * @access public
  */
 	function &getInstance() {
-		static $instance = array();
-		if (!$instance) {
-			$instance[0] =& new CodeCoverageManager();
+		if (is_null(self::$instance)) {
+			self::$instance =& new CodeCoverageManager();
 		}
-		return $instance[0];
+		return self::$instance;
 	}
 /**
  * Starts a new Coverage Analyzation for a given test case file
